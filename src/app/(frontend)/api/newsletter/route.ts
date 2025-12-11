@@ -5,7 +5,7 @@ import configPromise from '@payload-config'
 export async function POST(request: NextRequest) {
   try {
     const payload = await getPayload({ config: configPromise })
-    const body = await request.json()
+    const body = (await request.json()) as { email?: string }
 
     const { email } = body
 
