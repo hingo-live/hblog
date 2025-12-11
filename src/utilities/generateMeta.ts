@@ -11,7 +11,8 @@ const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   let url = serverUrl + '/website-template-OG.webp'
 
   if (image && typeof image === 'object' && 'url' in image) {
-    const ogUrl = image.sizes?.og?.url
+    // sizes may not exist on Cloudflare Workers (no sharp support)
+    const ogUrl = (image as Media & { sizes?: { og?: { url?: string } } }).sizes?.og?.url
 
     url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
   }
