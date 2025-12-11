@@ -107,7 +107,7 @@ export const seed = async ({
         password: 'password',
         role: 'author',
       },
-    }),
+    } as Parameters<typeof payload.create>[0]),
     payload.create({
       collection: 'media',
       data: image1,
