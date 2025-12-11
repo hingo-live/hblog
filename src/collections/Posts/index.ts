@@ -42,13 +42,15 @@ export const Posts: CollectionConfig<'posts'> = {
     title: true,
     slug: true,
     categories: true,
+    excerpt: true,
+    featured: true,
     meta: {
       image: true,
       description: true,
     },
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'featured', 'updatedAt'],
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({
@@ -72,6 +74,13 @@ export const Posts: CollectionConfig<'posts'> = {
       required: true,
     },
     {
+      name: 'excerpt',
+      type: 'textarea',
+      admin: {
+        description: 'A short summary of the post for previews and SEO',
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -80,6 +89,9 @@ export const Posts: CollectionConfig<'posts'> = {
               name: 'heroImage',
               type: 'upload',
               relationTo: 'media',
+              admin: {
+                description: 'Cover image for the post',
+              },
             },
             {
               name: 'content',
@@ -129,8 +141,87 @@ export const Posts: CollectionConfig<'posts'> = {
               hasMany: true,
               relationTo: 'categories',
             },
+            {
+              name: 'tags',
+              type: 'array',
+              admin: {
+                position: 'sidebar',
+              },
+              fields: [
+                {
+                  name: 'tag',
+                  type: 'text',
+                  required: true,
+                },
+              ],
+            },
           ],
           label: 'Meta',
+        },
+        {
+          label: 'Stats & Features',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'likes',
+                  type: 'number',
+                  defaultValue: 0,
+                  admin: {
+                    description: 'Number of likes (auto-updated)',
+                    readOnly: true,
+                  },
+                },
+                {
+                  name: 'views',
+                  type: 'number',
+                  defaultValue: 0,
+                  admin: {
+                    description: 'Number of views (auto-updated)',
+                    readOnly: true,
+                  },
+                },
+                {
+                  name: 'commentsCount',
+                  type: 'number',
+                  defaultValue: 0,
+                  admin: {
+                    description: 'Number of comments (auto-updated)',
+                    readOnly: true,
+                  },
+                },
+              ],
+            },
+            {
+              name: 'readingTime',
+              type: 'number',
+              admin: {
+                description: 'Estimated reading time in minutes',
+              },
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'featured',
+                  type: 'checkbox',
+                  defaultValue: false,
+                  admin: {
+                    description: 'Mark this post as featured',
+                  },
+                },
+                {
+                  name: 'featureRank',
+                  type: 'number',
+                  admin: {
+                    description: 'Rank for sorting in featured sections (lower = higher priority)',
+                    condition: (data) => data?.featured,
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           name: 'meta',

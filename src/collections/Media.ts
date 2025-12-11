@@ -22,7 +22,9 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      admin: {
+        description: 'Alternative text for accessibility',
+      },
     },
     {
       name: 'caption',
@@ -32,6 +34,24 @@ export const Media: CollectionConfig = {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
+    },
+    {
+      name: 'mediaType',
+      type: 'select',
+      defaultValue: 'image',
+      options: [
+        {
+          label: 'Image',
+          value: 'image',
+        },
+        {
+          label: 'Video',
+          value: 'video',
+        },
+      ],
+      admin: {
+        description: 'Type of media file',
+      },
     },
   ],
   upload: {

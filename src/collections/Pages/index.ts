@@ -7,6 +7,15 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { FeaturedPosts } from '../../blocks/FeaturedPosts/config'
+import { CategoryChips } from '../../blocks/CategoryChips/config'
+import { Carousel } from '../../blocks/Carousel/config'
+import { MostViewed } from '../../blocks/MostViewed/config'
+import { Video } from '../../blocks/Video/config'
+import { Newsletter } from '../../blocks/Newsletter/config'
+import { AuthorShowcase } from '../../blocks/AuthorShowcase/config'
+import { Grid } from '../../blocks/Grid/config'
+import { CustomCTA } from '../../blocks/CustomCTA/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -72,7 +81,22 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                FeaturedPosts,
+                CategoryChips,
+                Carousel,
+                MostViewed,
+                Video,
+                Newsletter,
+                AuthorShowcase,
+                Grid,
+                CustomCTA,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
