@@ -98,16 +98,18 @@ export const seed = async ({
     ),
   ])
 
-  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
-    payload.create({
-      collection: 'users',
-      data: {
-        name: 'Demo Author',
-        email: 'demo-author@example.com',
-        password: 'password',
-        role: 'author',
-      },
-    } as Parameters<typeof payload.create>[0]),
+  // Create demo author first (separate from Promise.all to get correct type)
+  const demoAuthor = await payload.create({
+    collection: 'users',
+    data: {
+      name: 'Demo Author',
+      email: 'demo-author@example.com',
+      password: 'password',
+      role: 'author',
+    },
+  })
+
+  const [image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
     payload.create({
       collection: 'media',
       data: image1,
