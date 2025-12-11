@@ -274,15 +274,15 @@ export interface Post {
       }[]
     | null;
   /**
-   * Number of likes
+   * Number of likes (auto-updated)
    */
   likes?: number | null;
   /**
-   * Number of views
+   * Number of views (auto-updated)
    */
   views?: number | null;
   /**
-   * Number of comments
+   * Number of comments (auto-updated)
    */
   commentsCount?: number | null;
   /**
