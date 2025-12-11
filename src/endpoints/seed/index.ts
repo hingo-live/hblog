@@ -99,6 +99,7 @@ export const seed = async ({
   ])
 
   // Create demo author first (separate from Promise.all to get correct type)
+  // @ts-expect-error - Payload types may require draft field in some environments
   const demoAuthor = await payload.create({
     collection: 'users',
     data: {
