@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { slugField } from 'payload'
 
+// Users collection with author profile fields
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
