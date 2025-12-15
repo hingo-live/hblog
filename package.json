@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build && opennextjs-cloudflare build --skipNextBuild",
+    "build": "rm -rf .open-next && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build && opennextjs-cloudflare build --skipNextBuild",
     "build:next": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "deploy": "pnpm run deploy:database && pnpm run deploy:app",
     "deploy:app": "opennextjs-cloudflare deploy --no-bundle --env=$CLOUDFLARE_ENV",
