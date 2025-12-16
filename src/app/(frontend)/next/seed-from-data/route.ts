@@ -1,9 +1,7 @@
 import { createLocalReq, getPayload } from 'payload'
-import { seedFromData } from '@/endpoints/seed/from-data'
+import { seedInline } from '@/endpoints/seed/seed-inline'
 import config from '@payload-config'
 import { headers } from 'next/headers'
-
-export const maxDuration = 300 // Allow up to 5 minutes for fetching images
 
 export async function POST(): Promise<Response> {
   const payload = await getPayload({ config })
@@ -20,11 +18,13 @@ export async function POST(): Promise<Response> {
     // Create a Payload request object to pass to the Local API for transactions
     const payloadReq = await createLocalReq({ user }, payload)
 
-    await seedFromData({ payload, req: payloadReq })
+    const result = await seedInline({ payload, req: payloadReq })
 
-    return Response.json({ success: true })
+    return Response.json({ success: true, ...result })
   } catch (e) {
-    payload.logger.error({ err: e, message: 'Error seeding data from data/ folder' })
-    return new Response('Error seeding data.', { status: 500 })
+    payload.logger.error({ err: e, message: 'Error seeding data' })
+    return new Response(`Error seeding data: ${e instanceof Error ? e.message : 'Unknown error'}`, {
+      status: 500,
+    })
   }
 }
